@@ -140,13 +140,14 @@ log() {
     esc_p SGR 0
 
     # Print the info name and info data separator, if applicable.
-    [ "$use_seperator" ] || printf %s "$PF_SEP"
 
     # Move the cursor backward the length of the *current* info name and
     # then move it forwards the length of the *longest* info name. This
     # aligns each info data line.
     esc_p CUB "${#name}"
     esc_p CUF "${PF_ALIGN:-$info_length}"
+
+    [ "$use_seperator" ] || printf %s "$PF_SEP"
 
     # Print the info data, color it and strip all leading whitespace
     # from the string.
@@ -1802,10 +1803,10 @@ get_ascii() {
 
         ([Cc]atppuccin*)
             read_ascii 2 <<-EOF
-				${c2} /| ､
-				${c2}(°､ ｡ 7
-				${c2} |､  ~ヽ
-				${c2} じしf_,)〳‎‎
+				${c6} /| ､
+				${c6}(°､ ｡ 7
+				${c6} |､  ~ヽ
+				${c6} じしf_,)〳‎‎
 			EOF
         ;;
 
