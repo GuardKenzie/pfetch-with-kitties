@@ -1100,8 +1100,8 @@ get_palette() {
     # False positive.
     # shellcheck disable=2154
     {
-        esc SGR 7
-        palette="$e$c1 $c1 $c2 $c2 $c3 $c3 $c4 $c4 $c5 $c5 $c6 $c6 "
+        # esc SGR 7
+        palette="$e$c1 ● $c2 ● $c3 ● $c4 ● $c5 ● $c6 ● "
         esc SGR 0
         palette="$palette$e"
     }
@@ -1110,6 +1110,7 @@ get_palette() {
     printf '\n' >&6
     log "$palette
         " " " " " >&6
+    printf '\n' >&6
 }
 
 get_ascii() {
