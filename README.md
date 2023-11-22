@@ -3,6 +3,18 @@
 <h1 align="center">Literally pfetch but with kitties</h1>
 <p align="center">A pretty system information tool written in POSIX sh</p><br>
 
+## Modifications
+This fork adds the option to display your local ip address and the current weather. 
+
+### Weather
+The weather script just reads and outputs the content of the file specified in `PF_WEATHER`. You can create a script to update that file with your current weather.
+
+[Here is my script](https://github.com/GuardKenzie/kastali/blob/master/.dotfiles/vedur.py) which I run as a chron job every 5 minutes.
+The script takes 2 arguments:
+
+1. Your location, the same as for [wttr.in](https://wttr.in/:help).
+2. The weather file. 
+
 ## Configuration
 
 `pfetch` is configured through environment variables.
@@ -14,7 +26,7 @@
 # Valid: space separated string
 #
 # OFF by default: shell editor wm de palette
-PF_INFO="ascii title os host kernel uptime pkgs memory"
+PF_INFO="ascii title os host kernel uptime pkgs memory ip weather"
 
 # Example: Only ASCII.
 PF_INFO="ascii"
@@ -61,6 +73,11 @@ PF_ALIGN=""
 # Default: unset (auto)
 # Valid: string
 PF_ASCII="Catppuccin"
+
+# Where the current weather information is stored
+# Default: unset
+# Valid: string
+PF_WEATHER="$HOME/.weather"
 
 # The below environment variables control more
 # than just 'pfetch' and can be passed using
