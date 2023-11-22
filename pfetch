@@ -201,7 +201,7 @@ get_ip() {
 }
 
 get_weather() {
-	weather=$(cat ~/.dotfiles/vedur-nuna)
+	weather=$(cat "${PF_WEATHER}")
 	log weather "${weather}" >&6
 }
 
