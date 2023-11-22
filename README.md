@@ -9,11 +9,48 @@ This fork adds the option to display your local ip address and the current weath
 ### Weather
 The weather script just reads and outputs the content of the file specified in `PF_WEATHER`. You can create a script to update that file with your current weather.
 
-[Here is my script](https://github.com/GuardKenzie/kastali/blob/master/.dotfiles/vedur.py) which I run as a chron job every 5 minutes.
+Below is an example weather script written in Python which I run as a chron job every 5 minutes.
 The script takes 2 arguments:
 
 1. Your location, the same as for [wttr.in](https://wttr.in/:help).
 2. The weather file. 
+
+<details>
+  <summary>✏️ Code</summary>
+    
+  ```python
+  #!/bin/python
+  import re
+  import requests
+  import os.path
+
+  from argparse import ArgumentParser
+
+  parser = ArgumentParser()
+
+  parser.add_argument("location")
+  parser.add_argument("file")
+
+  args = parser.parse_args()
+
+  location_regex = r"^[A-Za-z]+"
+  temp_regex     = r"([+-]{0,1}\d+(?:\([+-]{0,1}\d+\)){0,1} °C)"
+
+  # Get wttr.in
+  wttr = requests.get(f"http://wttr.in/{args.location}?0?q?T").content.decode("utf-8")
+
+  # Find strings
+  location = re.findall(location_regex, wttr)[0]
+  temp = re.findall(temp_regex, wttr)[0].replace(" ", "")
+
+  weather_info = f"{temp} ({location})"
+  file_locaton = os.path.expanduser(args.file)
+
+  with open(file_locaton, "w+") as f:
+      f.write(weather_info)
+  ```
+
+</details>
 
 ## Configuration
 
