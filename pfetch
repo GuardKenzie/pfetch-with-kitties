@@ -193,7 +193,18 @@ get_title() {
     log "${user}@${hostname}" " " " " >&6
 }
 
-get_os() {
+get_ip() {
+	address=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+
+	log ip "${address}" >&6 
+}
+
+get_weather() {
+	weather=$(cat ~/.dotfiles/vedur-nuna)
+	log weather "${weather}" >&6
+}
+
+get_os(){
     # This function is called twice, once to detect the distribution name
     # for the purposes of picking an ascii art early and secondly to display
     # the distribution name in the info output (if enabled).
